@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://utomtt4dy8ss"]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1_rpaq3"]
+[ext_resource type="AudioStream" uid="uid://y2qt7asg4bea" path="res://assets/audio/sfx/button_pressed.ogg" id="2_4pgyd"]
+[ext_resource type="AudioStream" uid="uid://7rbwkv12vg6r" path="res://assets/audio/sfx/button_selected.ogg" id="3_dy4j8"]
+
+[node name="GameOver" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_rpaq3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.145098, 0.145098, 0.145098, 0.376471)
+
+[node name="VolverMenu" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 54.0
+offset_top = -142.0
+offset_right = 177.0
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "volver al menú"
+
+[node name="Reiniciar" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -143.0
+offset_top = -144.0
+offset_right = -71.0
+offset_bottom = -113.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "reiniciar
+"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.0
+offset_top = 48.0
+offset_right = -28.0
+offset_bottom = 71.0
+grow_horizontal = 2
+scale = Vector2(2.785, 2.785)
+text = "Perdiste"
+
+[node name="sound_button_pressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_4pgyd")
+volume_db = -11.278
+
+[node name="sound_button_selected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dy4j8")
+volume_db = -10.0
+
+[connection signal="mouse_entered" from="VolverMenu" to="." method="_on_volver_menu_mouse_entered"]
+[connection signal="pressed" from="VolverMenu" to="." method="_on_volver_menu_pressed"]
+[connection signal="mouse_entered" from="Reiniciar" to="." method="_on_reiniciar_mouse_entered"]
+[connection signal="pressed" from="Reiniciar" to="." method="_on_reiniciar_pressed"]

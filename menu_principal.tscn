@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=3 uid="uid://upa16r6vn77w"]
+
+[ext_resource type="Script" path="res://menu_principal.gd" id="1_ydtov"]
+[ext_resource type="Texture2D" uid="uid://csr4md0upicj3" path="res://assets/sprites/windrise-background.png" id="2_orttl"]
+[ext_resource type="AudioStream" uid="uid://dmr7vj2pyribu" path="res://assets/audio/menu/main_menu.ogg" id="3_nacl8"]
+[ext_resource type="AudioStream" uid="uid://y2qt7asg4bea" path="res://assets/audio/sfx/button_pressed.ogg" id="4_614e7"]
+[ext_resource type="AudioStream" uid="uid://7rbwkv12vg6r" path="res://assets/audio/sfx/button_selected.ogg" id="5_pl7oy"]
+
+[node name="MenuPrincipal" type="CanvasLayer"]
+script = ExtResource("1_ydtov")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -597.0
+offset_top = -144.0
+offset_right = 597.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.65, 0.65)
+pivot_offset = Vector2(1024, 384)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_orttl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.172833, 0.172833, 0.172833, 0.403922)
+
+[node name="Menu" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = 55.0
+offset_right = -28.0
+offset_bottom = 78.0
+grow_horizontal = 2
+scale = Vector2(2.39, 2.39)
+text = "The Fate of Ibuzuki"
+
+[node name="Jugar" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -54.0
+offset_right = 26.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Jugar"
+
+[node name="Opciones" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = 22.0
+offset_right = 46.0
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "opciones
+"
+
+[node name="Salir" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = 94.0
+offset_right = 22.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "salir
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nacl8")
+autoplay = true
+parameters/looping = true
+
+[node name="sound_button_pressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_614e7")
+volume_db = -11.278
+
+[node name="sound_button_selected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_pl7oy")
+volume_db = -10.0
+
+[connection signal="mouse_entered" from="Jugar" to="." method="_on_jugar_mouse_entered"]
+[connection signal="pressed" from="Jugar" to="." method="_on_jugar_pressed"]
+[connection signal="mouse_entered" from="Opciones" to="." method="_on_opciones_mouse_entered"]
+[connection signal="pressed" from="Opciones" to="." method="_on_opciones_pressed"]
+[connection signal="mouse_entered" from="Salir" to="." method="_on_salir_mouse_entered"]
+[connection signal="pressed" from="Salir" to="." method="_on_salir_pressed"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt7rj6v40slmv"]
+
+[ext_resource type="Script" path="res://label_daño.gd" id="1_4c78f"]
+
+[node name="LabelDaño" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(0.625, 0.625)
+text = "daño"
+script = ExtResource("1_4c78f")
+velocidad_subida = 50
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

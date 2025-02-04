@@ -1,0 +1,173 @@
+[gd_scene load_steps=7 format=3 uid="uid://v2dk26t8y75e"]
+
+[ext_resource type="Script" path="res://pause.gd" id="1_8ydly"]
+[ext_resource type="Texture2D" uid="uid://h3sdbwywwyiw" path="res://assets/sprites/obj/piedradeobjetos.png" id="2_44bvt"]
+[ext_resource type="Texture2D" uid="uid://dh7h4rf4gbf4k" path="res://assets/sprites/obj/leafobj.png" id="3_fc7vp"]
+[ext_resource type="Texture2D" uid="uid://turrdfbjl60" path="res://assets/sprites/obj/fireobj.png" id="4_oqcqj"]
+[ext_resource type="AudioStream" uid="uid://y2qt7asg4bea" path="res://assets/audio/sfx/button_pressed.ogg" id="5_t0ags"]
+[ext_resource type="AudioStream" uid="uid://7rbwkv12vg6r" path="res://assets/audio/sfx/button_selected.ogg" id="6_iyas1"]
+
+[node name="Pause" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_8ydly")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.141176, 0.141176, 0.152941)
+
+[node name="btnPlay" type="Button" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 53.0
+offset_top = -86.0
+offset_right = 175.0
+offset_bottom = -55.0
+grow_vertical = 2
+text = "Volver al juego"
+
+[node name="btnRestart" type="Button" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 52.96
+offset_top = -15.5
+offset_right = 174.96
+offset_bottom = 15.5
+grow_vertical = 2
+text = "Reiniciar"
+
+[node name="btnMenu" type="Button" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 54.0
+offset_top = 61.0
+offset_right = 176.0
+offset_bottom = 92.0
+grow_vertical = 2
+text = "Volver al menu"
+
+[node name="PowerUpContainer" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.819672
+anchor_top = 0.03125
+anchor_right = 0.983021
+anchor_bottom = 0.225
+offset_right = -46.5
+offset_bottom = -31.0
+grow_horizontal = 0
+scale = Vector2(1.5, 1.5)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LeafContainer" type="VBoxContainer" parent="PowerUpContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="PowerUpContainer/LeafContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_44bvt")
+expand_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PowerUpContainer/LeafContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.8333
+offset_top = -10.8333
+offset_right = 29.1667
+offset_bottom = 29.1667
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("3_fc7vp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PowerUpContainer/LeafContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="PowerUpContainer/LeafContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PowerUpContainer/LeafContainer/HBoxContainer"]
+layout_mode = 2
+text = "/5"
+
+[node name="FireContainer" type="VBoxContainer" parent="PowerUpContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="PowerUpContainer/FireContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_44bvt")
+expand_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PowerUpContainer/FireContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.196581
+anchor_top = 0.205128
+anchor_right = 0.811966
+anchor_bottom = 0.820513
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_oqcqj")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PowerUpContainer/FireContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="PowerUpContainer/FireContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PowerUpContainer/FireContainer/HBoxContainer"]
+layout_mode = 2
+text = "/5"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_top = 17.0
+offset_right = -37.0
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.68, 3.68)
+text = "PAUSA"
+
+[node name="sound_button_pressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_t0ags")
+volume_db = -10.0
+
+[node name="sound_button_selected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_iyas1")
+volume_db = -10.0
+
+[connection signal="mouse_entered" from="btnPlay" to="." method="_on_btn_play_mouse_entered"]
+[connection signal="pressed" from="btnPlay" to="." method="_on_btn_play_pressed"]
+[connection signal="mouse_entered" from="btnRestart" to="." method="_on_btn_restart_mouse_entered"]
+[connection signal="pressed" from="btnRestart" to="." method="_on_btn_restart_pressed"]
+[connection signal="mouse_entered" from="btnMenu" to="." method="_on_btn_menu_mouse_entered"]
+[connection signal="pressed" from="btnMenu" to="." method="_on_btn_menu_pressed"]
