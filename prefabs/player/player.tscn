@@ -1,0 +1,211 @@
+[gd_scene load_steps=25 format=3 uid="uid://bx5lv2v7eb7q2"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_ms2dh"]
+[ext_resource type="Texture2D" uid="uid://buk5r6yhpk26h" path="res://assets/sprites/kayronewanimationsv.png" id="2_n3bbf"]
+[ext_resource type="Script" path="res://addons/state_machine/state_machine.gd" id="3_w7wxo"]
+[ext_resource type="Script" path="res://scripts/player/states/idle_state.gd" id="4_b878u"]
+[ext_resource type="Script" path="res://scripts/player/states/running_state.gd" id="5_luvjk"]
+[ext_resource type="Script" path="res://scripts/player/states/player_state_base.gd" id="6_48xgp"]
+[ext_resource type="Script" path="res://scripts/player/states/player_state_gravity_base.gd" id="7_cy4hp"]
+[ext_resource type="Script" path="res://scripts/player/states/jumping_state.gd" id="8_0cmwv"]
+[ext_resource type="Script" path="res://scripts/player/states/falling_state.gd" id="9_g0177"]
+[ext_resource type="Script" path="res://addons/skill_manager/skill_caster.gd" id="10_5tsa6"]
+[ext_resource type="Script" path="res://scripts/player/states/basic_atk_state.gd" id="10_f87db"]
+[ext_resource type="Script" path="res://scripts/player/states/special_atk_state.gd" id="11_a8jac"]
+[ext_resource type="Script" path="res://scripts/player/states/ultimate_atk_state.gd" id="12_48ebu"]
+[ext_resource type="Script" path="res://scripts/player/states/shield_state.gd" id="13_swv7l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3x7cl"]
+size = Vector2(29, 30)
+
+[sub_resource type="Animation" id="Animation_ufswg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_ofc2q"]
+resource_name = "basicAtk"
+length = 0.666683
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [30, 31, 32, 33]
+}
+
+[sub_resource type="Animation" id="Animation_5iqno"]
+resource_name = "fall"
+length = 0.60002
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_83jti"]
+resource_name = "hurt"
+length = 1.00001
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_ve2xu"]
+resource_name = "idle"
+length = 0.80002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_2gbal"]
+resource_name = "jump"
+length = 0.250012
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_pcgar"]
+resource_name = "run"
+length = 0.461546
+loop_mode = 1
+step = 0.0769231
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0769231, 0.153846, 0.230769, 0.307692, 0.384615),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1eluy"]
+_data = {
+"RESET": SubResource("Animation_ufswg"),
+"basicAtk": SubResource("Animation_ofc2q"),
+"fall": SubResource("Animation_5iqno"),
+"hurt": SubResource("Animation_83jti"),
+"idle": SubResource("Animation_ve2xu"),
+"jump": SubResource("Animation_2gbal"),
+"run": SubResource("Animation_pcgar")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ruqlk"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animator", "skill_caster")]
+script = ExtResource("1_ms2dh")
+animator = NodePath("AnimationPlayer")
+skill_caster = NodePath("SkillCaster")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_n3bbf")
+hframes = 8
+vframes = 5
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 9)
+shape = SubResource("RectangleShape2D_3x7cl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1eluy"),
+"skills_anim": SubResource("AnimationLibrary_ruqlk")
+}
+autoplay = "idle"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("3_w7wxo")
+default_state = NodePath("IdleState")
+
+[node name="PlayerStateBase" type="Node" parent="StateMachine"]
+script = ExtResource("6_48xgp")
+
+[node name="PlayerStateGravityBase" type="Node" parent="StateMachine"]
+script = ExtResource("7_cy4hp")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("4_b878u")
+
+[node name="RunningState" type="Node" parent="StateMachine"]
+script = ExtResource("5_luvjk")
+
+[node name="JumpingState" type="Node" parent="StateMachine"]
+script = ExtResource("8_0cmwv")
+
+[node name="FallingState" type="Node" parent="StateMachine"]
+script = ExtResource("9_g0177")
+
+[node name="BasicAtkState" type="Node" parent="StateMachine"]
+script = ExtResource("10_f87db")
+
+[node name="SpecialAtkState" type="Node" parent="StateMachine"]
+script = ExtResource("11_a8jac")
+
+[node name="UltimateAtkState" type="Node" parent="StateMachine"]
+script = ExtResource("12_48ebu")
+
+[node name="ShieldState" type="Node" parent="StateMachine"]
+script = ExtResource("13_swv7l")
+
+[node name="SkillCaster" type="Node" parent="."]
+script = ExtResource("10_5tsa6")

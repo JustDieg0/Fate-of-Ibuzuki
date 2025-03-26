@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbr5h18jj6jss"]
+
+[ext_resource type="Script" path="res://sing_text_label.gd" id="1_nhjwv"]
+[ext_resource type="Texture2D" uid="uid://da2wpmfmvoui1" path="res://assets/sprites/singtextbox.png" id="1_wouxh"]
+[ext_resource type="FontFile" uid="uid://bbsx42joqte7b" path="res://assets/fonts/Minecraftia-Regular.ttf" id="2_mq7pq"]
+
+[node name="SingTextLabel" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nhjwv")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_wouxh")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 3
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_mq7pq")
+vertical_alignment = 1

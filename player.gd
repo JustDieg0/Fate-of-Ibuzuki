@@ -1,5 +1,6 @@
+@icon("res://addons/skill_manager/assets/icon_skill.svg")
 extends CharacterBody2D
-class_name Player
+class_name Player2
 
 @export var move_speed:float = 200
 @export var jump_speed:float = 400
@@ -8,6 +9,7 @@ class_name Player
 @export var atk_vfx: PackedScene
 @onready var animated_sprite: AnimationPlayer = $AnimationPlayer
 @onready var health_bar : TextureProgressBar = $PlayerGUI/TextureProgressBar
+@onready var actionable_finder: Area2D = $DialogueArea
 var is_facing_right = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var anim_pos = 1
@@ -22,6 +24,13 @@ func _ready() -> void:
 	$Sprite2D/BasicHit/CollisionShape2D.disabled = true
 	actualizar_vida()
 	actualizar_vida_max()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("interact"):
+		var actionables = actionable_finder.get_overlapping_areas()
+		if actionables.size() > 0:
+			actionables[0].action()
+			return
 
 func _physics_process(delta: float) -> void:
 	jump(delta)

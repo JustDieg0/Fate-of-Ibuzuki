@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://vybbmhbju410"]
+[gd_scene load_steps=27 format=3 uid="uid://vybbmhbju410"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_3halh"]
 [ext_resource type="PackedScene" uid="uid://rvvpyoexfui4" path="res://box_mostrar_obj.tscn" id="2_h01fl"]
@@ -10,9 +10,15 @@
 [ext_resource type="Texture2D" uid="uid://ben14rm1e8vxc" path="res://assets/sprites/obj/heartobj.png" id="5_f681h"]
 [ext_resource type="AudioStream" uid="uid://ooqcfowpcdg0" path="res://assets/audio/sfx/hit_player.ogg" id="7_83f3a"]
 [ext_resource type="AudioStream" uid="uid://bnd7efwo0l27k" path="res://assets/audio/sfx/attack.ogg" id="8_od1s6"]
+[ext_resource type="FontFile" uid="uid://bbsx42joqte7b" path="res://assets/fonts/Minecraftia-Regular.ttf" id="9_h4rax"]
+[ext_resource type="Script" path="res://addons/state_machine/state_machine.gd" id="12_xmbgu"]
+[ext_resource type="Script" path="res://idle_state.gd" id="13_ws8ha"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7hwuf"]
 size = Vector2(24, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ige0q"]
+size = Vector2(24, 29)
 
 [sub_resource type="Animation" id="Animation_ufswg"]
 length = 0.001
@@ -27,30 +33,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/BasicHit/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("attack_sand:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_ofc2q"]
@@ -68,30 +50,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [30, 31, 32, 33]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/BasicHit/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.666667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("attack_sand:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.500001),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_rqcrl"]
@@ -254,9 +212,18 @@ position = Vector2(-17.015, 26.01)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/BasicHit"]
 position = Vector2(-29, 20.5)
 shape = SubResource("RectangleShape2D_7hwuf")
+disabled = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-10.375, 11.185)
+
+[node name="DialogueArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueArea"]
+position = Vector2(-29, 11.5)
+shape = SubResource("RectangleShape2D_ige0q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -304,14 +271,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -214.0
-offset_top = -136.0
-offset_right = -7.99994
-offset_bottom = -9.0
+offset_left = -248.0
+offset_top = -154.0
+offset_right = 6.10352e-05
+offset_bottom = -1.99997
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.785, 0.785)
 pivot_offset = Vector2(203, 127)
+theme_override_fonts/font = ExtResource("9_h4rax")
 text = "A-S para moverse
 W para saltar
 E para ataque basico
@@ -330,6 +298,13 @@ wait_time = 0.43
 
 [node name="cd_atk_vfx" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("12_xmbgu")
+default_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("13_ws8ha")
 
 [connection signal="body_entered" from="Sprite2D/BasicHit" to="." method="_on_basic_hit_body_entered"]
 [connection signal="timeout" from="cd_fuego" to="." method="_on_cd_fuego_timeout"]

@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx2xogdyv426y"]
+
+[ext_resource type="Texture2D" uid="uid://da2wpmfmvoui1" path="res://assets/sprites/singtextbox.png" id="1_v13u2"]
+[ext_resource type="FontFile" uid="uid://bbsx42joqte7b" path="res://assets/fonts/Minecraftia-Regular.ttf" id="2_5l675"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5s3rb"]
+font = ExtResource("2_5l675")
+
+[sub_resource type="LabelSettings" id="LabelSettings_c088j"]
+font = ExtResource("2_5l675")
+
+[node name="TextBox" type="CanvasLayer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_v13u2")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_vertical = 1
+text = "garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei garcia gei "
+label_settings = SubResource("LabelSettings_5s3rb")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = -16
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("1_v13u2")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = -2
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+text = "Kayro"
+label_settings = SubResource("LabelSettings_c088j")

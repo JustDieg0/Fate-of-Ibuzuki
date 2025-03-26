@@ -1,0 +1,12 @@
+~ start
+Kayro: Bueno...
+Kayro: Este es un dialogo de prueba en si. Solo quiero medir el tamaño del dialogo.
+Kayro: Pero bueno. Ahora testearemos si el menú de opciones funciona correctamente. Pero bueno. Ahora testearemos si el menú de opciones funciona correctamente.
+- Hola, opción 1!
+	Kayro: Elegiste la primera opción
+- Segunda opción!
+	Kayro: Elegiste la segunda opción
+- Comenzar de nuevo... => start
+- Terminar la conversación >:c => END
+Kayro: Aqui termina el testeo :v
+=> END
