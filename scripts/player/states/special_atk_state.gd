@@ -4,7 +4,7 @@ var skill: SpecialSkill = null
 
 func start() -> void:
 	skill = player.skill_caster.get_selected_spc_skill()
-	if skill:
+	if skill and player.skill_caster.timers[player.skill_caster.selected_skill].spc_timer.is_stopped():
 		skill.state = self
 		player.skill_caster.spc_start_selected_skill()
 	else:
@@ -19,7 +19,7 @@ func end() -> void:
 func on_process(delta:float) -> void:
 	if skill and skill.has_method("on_process"):
 		skill.on_process(delta)
-		
+				
 func on_physics_process(delta:float) -> void:
 	if skill and skill.has_method("on_physics_process"):
 		skill.on_physics_process(delta)

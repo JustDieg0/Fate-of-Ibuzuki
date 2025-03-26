@@ -14,4 +14,4 @@ skill_name = "Fireball"
 description = "Descripcion de prueba"
 icon = ExtResource("2_gj5m7")
 animation = ExtResource("1_h1p4r")
-cooldown = 10.0
+cooldown = 5.0

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://div74u5wmudyp"]
+
+[ext_resource type="Texture2D" uid="uid://da2wpmfmvoui1" path="res://assets/sprites/singtextbox.png" id="1_c7so7"]
+[ext_resource type="PackedScene" uid="uid://bx5lv2v7eb7q2" path="res://prefabs/player/player.tscn" id="2_hxom4"]
+[ext_resource type="Script" path="res://test_skill_add.gd" id="3_608pm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ru152"]
+size = Vector2(1102, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6cvm"]
+size = Vector2(65, 62)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Area2D" type="StaticBody2D" parent="."]
+position = Vector2(-54, 376)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(520, 2.5)
+shape = SubResource("RectangleShape2D_ru152")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(522, 0)
+scale = Vector2(17.3125, 1)
+texture = ExtResource("1_c7so7")
+
+[node name="Player" parent="." instance=ExtResource("2_hxom4")]
+position = Vector2(228, 249)
+
+[node name="Area2D2" type="Area2D" parent="."]
+script = ExtResource("3_608pm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(600, 316)
+shape = SubResource("RectangleShape2D_t6cvm")
+
+[connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]

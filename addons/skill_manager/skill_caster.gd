@@ -17,9 +17,7 @@ func load_selected_skills():
 			skills.append(pkg_skill)
 			pkg_skill.spc_skill.on_ready(self.owner)
 			pkg_skill.ult_skill.on_ready(self.owner)
-			var pkg_timer = PackedTimer.new()
-			pkg_timer.spc_timer.wait_time = pkg_skill.spc_skill.cooldown
-			pkg_timer.ult_timer.wait_time = pkg_skill.ult_skill.cooldown
+			var pkg_timer = PackedTimer.new(self)
 			timers.append(pkg_timer)
 			i += 1
 
@@ -37,6 +35,9 @@ func on_clear() -> void:
 			pkg_skill.spc_skill.on_exit(self.owner)
 			pkg_skill.ult_skill.on_exit(self.owner)
 			i += 1
+	for pkg_timer in timers:
+		if pkg_timer:
+			pkg_timer.queue_free()
 	skills.clear()
 	timers.clear()
 
@@ -49,10 +50,7 @@ func equip_one_skill(skill_id: String) -> void:
 			var i = skills.size()
 			pkg_skill.spc_skill.on_ready(self.owner)
 			pkg_skill.ult_skill.on_ready(self.owner)
-			print((self.owner as Player).animator.get_animation_list())
-			var pkg_timer = PackedTimer.new()
-			pkg_timer.spc_timer.wait_time = pkg_skill.spc_skill.cooldown
-			pkg_timer.ult_timer.wait_time = pkg_skill.ult_skill.cooldown
+			var pkg_timer = PackedTimer.new(self)
 			timers.append(pkg_timer)
 
 func on_equip_skills(pkg_skills: Array[String]) -> void:
@@ -64,9 +62,7 @@ func on_equip_skills(pkg_skills: Array[String]) -> void:
 			skills.append(pkg_skill)
 			pkg_skill.spc_skill.on_ready(self.owner)
 			pkg_skill.ult_skill.on_ready(self.owner)
-			var pkg_timer = PackedTimer.new()
-			pkg_timer.spc_timer.wait_time = pkg_skill.spc_skill.cooldown
-			pkg_timer.ult_timer.wait_time = pkg_skill.ult_skill.cooldown
+			var pkg_timer = PackedTimer.new(self)
 			timers.append(pkg_timer)
 			i += 1
 
@@ -74,7 +70,7 @@ func spc_action_selected_skill():
 	if skills.is_empty():
 		return
 	skills[selected_skill].spc_skill.action_skill(self.owner)
-	timers[selected_skill].spc_timer.start()
+	timers[selected_skill].spc_timer.start(skills[selected_skill].spc_skill.cooldown)
 
 func spc_start_selected_skill():
 	if skills.is_empty():
@@ -117,3 +113,13 @@ func get_selected_ult_skill() -> UltimateSkill:
 func change_skill(index: int):
 	if index >= 0 and index < skills.size():
 		selected_skill = index
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("btn1") and skills.size() >= 1:
+		change_skill(0)
+	elif Input.is_action_just_pressed("btn2") and skills.size() >= 2:
+		change_skill(1)
+	elif Input.is_action_just_pressed("btn3") and skills.size() >= 3:
+		change_skill(2)
+	if Input.is_action_just_pressed("btn4") and skills.size() >= 4:
+		change_skill(3)
