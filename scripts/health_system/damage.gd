@@ -1,4 +1,4 @@
-class_name Damange
+class_name Damage
 extends Resource
 
 var dmg : float
